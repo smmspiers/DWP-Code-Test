@@ -1,4 +1,4 @@
-package com.sammy.codetest.models;
+package com.sammy.codetest.model;
 
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
