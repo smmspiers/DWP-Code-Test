@@ -8,6 +8,7 @@ import java.util.List;
 public class CodeTestConfigurationProperties {
 
     private List<City> cities;
+    private String cityApiUrl;
 
     public List<City> getCities() {
         return cities;
@@ -17,4 +18,11 @@ public class CodeTestConfigurationProperties {
         this.cities = cities;
     }
 
+    public String getCityApiUrl() {
+        return cityApiUrl;
+    }
+
+    public void setCityApiUrl(String cityApiUrl) {
+        this.cityApiUrl = cityApiUrl;
+    }
 }

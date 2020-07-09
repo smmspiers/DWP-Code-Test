@@ -2,7 +2,7 @@ package com.sammy.codetest.service;
 
 import com.sammy.codetest.config.City;
 import com.sammy.codetest.config.CodeTestConfigurationProperties;
-import com.sammy.codetest.exception.UnknownCityException;
+import com.sammy.codetest.exception.CityNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -35,7 +35,7 @@ public class HaversineDistanceService {
                 .filter(c -> cityName.equals(c.getName()))
                 .findFirst();
         if (city.isEmpty()) {
-            throw new UnknownCityException();
+            throw new CityNotFoundException(cityName);
         }
         return calculateDistance(lat1, long1, city.get().getLatitude(), city.get().getLongitude());
     }
