@@ -1,6 +1,5 @@
 package com.sammy.codetest.exception;
 
-
 public class CityNotFoundException extends RuntimeException {
 
     private static final String MESSAGE = "Unknown city %s. Please enter a city that the API recognises.";

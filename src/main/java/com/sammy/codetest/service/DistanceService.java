@@ -9,18 +9,18 @@ import org.springframework.stereotype.Service;
 import java.util.Optional;
 
 @Service
-public class HaversineDistanceService {
+public class DistanceService {
 
     private static final double RADIUS_OF_EARTH = 3958.8;
 
     private final CodeTestConfigurationProperties config;
 
     @Autowired
-    public HaversineDistanceService(CodeTestConfigurationProperties config) {
+    public DistanceService(CodeTestConfigurationProperties config) {
         this.config = config;
     }
 
-    private double calculateDistance(double lat1, double long1, double lat2, double long2) {
+    private double haversineDistance(double lat1, double long1, double lat2, double long2) {
         final double dLat = Math.toRadians(lat2 - lat1);
         final double dLon = Math.toRadians(long1 - long2);
         lat1 = Math.toRadians(lat1);
@@ -30,14 +30,14 @@ public class HaversineDistanceService {
         return RADIUS_OF_EARTH * c;
     }
 
-    public double calculateCityDistance(double lat1, double long1, String cityName) {
+    public double distanceToCity(double lat1, double long1, String cityName) {
         final Optional<City> city = config.getCities().stream()
                 .filter(c -> cityName.equals(c.getName()))
                 .findFirst();
         if (city.isEmpty()) {
             throw new CityNotFoundException(cityName);
         }
-        return calculateDistance(lat1, long1, city.get().getLatitude(), city.get().getLongitude());
+        return haversineDistance(lat1, long1, city.get().getLatitude(), city.get().getLongitude());
     }
 
 }

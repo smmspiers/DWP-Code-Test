@@ -4,7 +4,7 @@ import com.sammy.codetest.config.CodeTestConfigurationProperties;
 import com.sammy.codetest.exception.ApiError;
 import com.sammy.codetest.exception.CityNotFoundException;
 import com.sammy.codetest.model.User;
-import com.sammy.codetest.service.HaversineDistanceService;
+import com.sammy.codetest.service.DistanceService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -34,10 +34,10 @@ public class CodeTestController {
     private static final Logger log = LoggerFactory.getLogger(CodeTestController.class);
 
     private final CodeTestConfigurationProperties config;
-    private final HaversineDistanceService distanceService;
+    private final DistanceService distanceService;
 
     @Autowired
-    public CodeTestController(CodeTestConfigurationProperties config, HaversineDistanceService distanceService) {
+    public CodeTestController(CodeTestConfigurationProperties config, DistanceService distanceService) {
         this.config = config;
         this.distanceService = distanceService;
     }
@@ -72,7 +72,7 @@ public class CodeTestController {
             return Collections.emptyList();
         }
         return users.get().stream()
-                .filter(user -> distanceService.calculateCityDistance(user.getLatitude(), user.getLongitude(), cityName) < 50)
+                .filter(user -> distanceService.distanceToCity(user.getLatitude(), user.getLongitude(), cityName) < 50)
                 .collect(Collectors.toList());
     }
 
