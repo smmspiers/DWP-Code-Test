@@ -43,25 +43,34 @@ public class CodeTestUnitTest {
         Mockito.when(configMock.getCities()).thenReturn(CITIES);
         final City paris = CITIES.get(0);
         System.out.println(configMock.getCities().stream().map(City::getName).collect(Collectors.toList()));
-        final double distance = distanceService.distanceToCity(paris.getLatitude(), paris.getLongitude(), "New York");
-        System.out.println(distance);
-        assertEquals(3627.0107003, distance, 0.001);
+        final double expectedDistance = distanceService.distanceToCity(
+                paris.getLatitude(),
+                paris.getLongitude(),
+                "New York");
+        System.out.println(expectedDistance);
+        assertEquals(3627.0107003, expectedDistance, 0.001);
     }
 
     @Test
     public void distanceToCity_FromParisToRio_ShouldBeCorrect() {
         Mockito.when(configMock.getCities()).thenReturn(CITIES);
         final City paris = CITIES.get(0);
-        final double distance = distanceService.distanceToCity(paris.getLatitude(), paris.getLongitude(), "Rio de Janeiro");
-        assertEquals(5696.963509, distance, 0.001);
+        final double expectedDistance = distanceService.distanceToCity(
+                paris.getLatitude(),
+                paris.getLongitude(),
+                "Rio de Janeiro");
+        assertEquals(5696.963509, expectedDistance, 0.001);
     }
 
     @Test
     public void distanceToCity_FromNewYorkToNewYork_ShouldBeZero() {
         Mockito.when(configMock.getCities()).thenReturn(CITIES);
         final City newYork = CITIES.get(1);
-        final double distance = distanceService.distanceToCity(newYork.getLatitude(), newYork.getLongitude(), "New York");
-        assertEquals(0, distance, 0.00000000001);
+        final double expectedDistance = distanceService.distanceToCity(
+                newYork.getLatitude(),
+                newYork.getLongitude(),
+                "New York");
+        assertEquals(0, expectedDistance);
     }
 
     @Test
