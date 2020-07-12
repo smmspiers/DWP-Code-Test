@@ -45,7 +45,7 @@ public class CodeTestController {
 
     @GetMapping("users/city/{cityName}/nearby")
     public List<User> getNearbyCityUsers(@PathVariable String cityName) {
-        LOGGER.info(String.format("Retrieving all users living within 50 miles of %s", cityName));
+        LOGGER.info("Retrieving all users living within 50 miles of {}", cityName);
         return apiService.getUsers().stream()
                 .filter(user -> distanceService.distanceToCity(user.getLatitude(), user.getLongitude(), cityName) < 50)
                 .collect(Collectors.toList());

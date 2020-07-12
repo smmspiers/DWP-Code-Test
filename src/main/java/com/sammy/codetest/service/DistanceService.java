@@ -23,6 +23,16 @@ public class DistanceService {
         this.config = config;
     }
 
+    /**
+     * Calculates the distance in miles between two points on the globe given their latitudes
+     * and longitudes using the Haversine formula. For Haversine formula see
+     * https://en.wikipedia.org/wiki/Haversine_formula
+     * @param lat1 latitude of first point
+     * @param long1 longitude of first point
+     * @param lat2 latitude of second point
+     * @param long2 longitude of second point
+     * @return the distance between the points
+     */
     private double haversineDistance(double lat1, double long1, double lat2, double long2) {
         final double dLat = Math.toRadians(lat2 - lat1);
         final double dLon = Math.toRadians(long1 - long2);
