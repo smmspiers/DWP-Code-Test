@@ -78,4 +78,5 @@ public class ErrorResponse {
     public void setStatusCode(Integer statusCode) {
         this.statusCode = statusCode;
     }
+
 }

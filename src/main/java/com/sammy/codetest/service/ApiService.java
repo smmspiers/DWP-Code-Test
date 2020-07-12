@@ -18,7 +18,7 @@ import java.util.Optional;
 @Service
 public class ApiService {
 
-    private static final Logger log = LoggerFactory.getLogger(ApiService.class);
+    private static final Logger LOGGER = LoggerFactory.getLogger(ApiService.class);
 
     private final RestTemplate restTemplate;
     private final CodeTestConfigurationProperties config;
@@ -30,6 +30,7 @@ public class ApiService {
     }
 
     public List<User> getUsers() {
+        LOGGER.debug("Calling external API for all users");
         final Optional<List<User>> users = Optional.ofNullable(
                 restTemplate.exchange(
                         config.getCityApiUrl() + "/users",
@@ -39,12 +40,11 @@ public class ApiService {
         if (users.isEmpty()) {
             return Collections.emptyList();
         }
-        System.out.println("SADasdfasdfasdf");
-        System.out.println(users.get().toString());
         return users.get();
     }
 
     public List<User> getUsersOfCity(String cityName) {
+        LOGGER.debug("Calling external API for all users living in {}", cityName);
         final Optional<List<User>> users = Optional.ofNullable(
                 restTemplate.exchange(
                         String.format(config.getCityApiUrl() + "/city/%s/users", cityName),
@@ -54,7 +54,7 @@ public class ApiService {
         if (users.isEmpty() || users.get().isEmpty()) {
             throw new CityNotFoundException(cityName);
         }
-        System.out.println(users.get().toString());
         return users.get();
     }
+
 }

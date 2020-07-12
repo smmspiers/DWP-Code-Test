@@ -11,12 +11,16 @@ import io.cucumber.java.en.And;
 import io.cucumber.java.en.Then;
 import io.cucumber.java.en.When;
 import io.cucumber.spring.CucumberContextConfiguration;
-import org.junit.platform.commons.logging.Logger;
-import org.junit.platform.commons.logging.LoggerFactory;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.web.server.LocalServerPort;
-import org.springframework.http.*;
+import org.springframework.http.HttpHeaders;
+import org.springframework.http.HttpMethod;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.MediaType;
+import org.springframework.http.ResponseEntity;
 import org.springframework.test.web.client.ExpectedCount;
 import org.springframework.test.web.client.MockRestServiceServer;
 import org.springframework.web.client.HttpClientErrorException;
@@ -38,7 +42,7 @@ import static org.springframework.test.web.client.response.MockRestResponseCreat
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
 public class StepDefs {
 
-    private static final Logger log = LoggerFactory.getLogger(StepDefs.class);
+    private static final Logger LOGGER = LoggerFactory.getLogger(StepDefs.class);
 
     @Autowired
     private RestTemplate restTemplate;
@@ -125,6 +129,7 @@ public class StepDefs {
     }
 
     private void mockExternalApi(String uri, String response) throws URISyntaxException {
+        LOGGER.info("Initialising mock for external API");
         mockServer.expect(ExpectedCount.once(),
                 requestTo(new URI(config.getCityApiUrl() + uri)))
                 .andExpect(method(HttpMethod.GET))

@@ -4,8 +4,8 @@ import com.sammy.codetest.config.City;
 import com.sammy.codetest.config.CodeTestConfigurationProperties;
 import com.sammy.codetest.exception.CityNotFoundException;
 import com.sammy.codetest.service.DistanceService;
-import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.Mockito;
@@ -15,14 +15,13 @@ import org.slf4j.LoggerFactory;
 
 import java.util.Arrays;
 import java.util.List;
-import java.util.stream.Collectors;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
 public class CodeTestUnitTest {
 
-    private static final Logger log = LoggerFactory.getLogger(CodeTestUnitTest.class);
+    private static final Logger LOGGER = LoggerFactory.getLogger(CodeTestUnitTest.class);
     private static final List<City> CITIES = Arrays.asList(
             new City("Paris", 48.85341, 2.3488),
             new City("New York", 40.71427, -74.00597),
@@ -35,6 +34,7 @@ public class CodeTestUnitTest {
 
     @BeforeEach
     public void initMocks() {
+        LOGGER.info("Initialising mocks");
         MockitoAnnotations.initMocks(this);
     }
 
@@ -42,12 +42,10 @@ public class CodeTestUnitTest {
     public void distanceToCity_FromParisToNewYork_ShouldBeCorrect() {
         Mockito.when(configMock.getCities()).thenReturn(CITIES);
         final City paris = CITIES.get(0);
-        System.out.println(configMock.getCities().stream().map(City::getName).collect(Collectors.toList()));
         final double expectedDistance = distanceService.distanceToCity(
                 paris.getLatitude(),
                 paris.getLongitude(),
                 "New York");
-        System.out.println(expectedDistance);
         assertEquals(3627.0107003, expectedDistance, 0.001);
     }
 

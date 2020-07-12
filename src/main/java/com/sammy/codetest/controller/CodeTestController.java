@@ -26,7 +26,7 @@ import java.util.stream.Collectors;
 @RestController
 public class CodeTestController {
 
-    private static final Logger log = LoggerFactory.getLogger(CodeTestController.class);
+    private static final Logger LOGGER = LoggerFactory.getLogger(CodeTestController.class);
 
     private final DistanceService distanceService;
     private final ApiService apiService;
@@ -39,13 +39,13 @@ public class CodeTestController {
 
     @GetMapping("users/city/{cityName}")
     public List<User> getCityUsers(@PathVariable String cityName) {
-        log.info(String.format("Calling external API for all users listed as living in %s", cityName));
+        LOGGER.info("Retrieving all users listed as living in {}", cityName);
         return apiService.getUsersOfCity(cityName);
     }
 
     @GetMapping("users/city/{cityName}/nearby")
     public List<User> getNearbyCityUsers(@PathVariable String cityName) {
-        log.info(String.format("Calling external API for all users living within 50 miles of %s", cityName));
+        LOGGER.info(String.format("Retrieving all users living within 50 miles of %s", cityName));
         return apiService.getUsers().stream()
                 .filter(user -> distanceService.distanceToCity(user.getLatitude(), user.getLongitude(), cityName) < 50)
                 .collect(Collectors.toList());
@@ -56,7 +56,7 @@ public class CodeTestController {
 
         @ExceptionHandler(value = CityNotFoundException.class)
         protected ResponseEntity<Object> handleUnknownCity(CityNotFoundException ex, WebRequest request) {
-            log.error(String.format("%s is not a recognised city", ex.getCityName()));
+            LOGGER.error("{} is not a recognised city", ex.getCityName());
             return handleExceptionInternal(
                     ex,
                     new ErrorResponse(ex.getMessage(), LocalDateTime.now(), HttpStatus.NOT_FOUND),

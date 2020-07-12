@@ -18,4 +18,5 @@ public class CityNotFoundException extends RuntimeException {
     public void setCityName(String cityName) {
         this.cityName = cityName;
     }
+
 }

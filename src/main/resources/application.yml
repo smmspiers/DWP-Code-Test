@@ -2,4 +2,3 @@ codetest:
   city-api-url: https://bpdts-test-app.herokuapp.com
   cities:
     - { name: London, latitude: 51.509865, longitude: -0.118092 }
-
