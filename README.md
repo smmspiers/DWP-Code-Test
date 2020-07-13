@@ -1,6 +1,6 @@
 # Rest API project 
 This is a Java Spring-boot application that uses an external API to return either all users who are 
-listed as living in some city or 50 miles (ca. 80 km) from some city.  
+listed as living in some city or 50 miles (ca. 80 km) from some city.
 The external API's URL: https://bpdts-test-app.herokuapp.com.
 
 ## How to run
